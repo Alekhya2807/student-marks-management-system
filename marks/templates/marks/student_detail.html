@@ -1,0 +1,81 @@
+{% extends 'marks/base.html' %}
+
+{% block title %}{{ student.name }} — Detail{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card p-4">
+
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h4 class="fw-bold mb-0">{{ student.name }}</h4>
+                    <span class="text-muted">Roll No: {{ student.roll_no }}</span>
+                </div>
+                <span class="badge bg-{{ student.grade_color }} fs-5 px-3 py-2">
+                    Grade: {{ student.grade }}
+                </span>
+            </div>
+
+            <!-- Personal Info -->
+            <h6 class="text-muted fw-semibold">👤 Personal Info</h6>
+            <table class="table table-bordered mb-4">
+                <tr><th>Name</th><td>{{ student.name }}</td></tr>
+                <tr><th>Roll No</th><td>{{ student.roll_no }}</td></tr>
+                <tr><th>Email</th><td>{{ student.email }}</td></tr>
+                <tr><th>Added On</th><td>{{ student.created_at|date:"M d, Y" }}</td></tr>
+            </table>
+
+            <!-- Subject Marks -->
+            <h6 class="text-muted fw-semibold">📚 Subject Marks</h6>
+            <table class="table table-bordered mb-4">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                        <th>Out of</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Maths</td>   <td>{{ student.maths }}</td>   <td>100</td></tr>
+                    <tr><td>Science</td> <td>{{ student.science }}</td> <td>100</td></tr>
+                    <tr><td>English</td> <td>{{ student.english }}</td> <td>100</td></tr>
+                    <tr><td>History</td> <td>{{ student.history }}</td> <td>100</td></tr>
+                    <tr><td>Computer</td><td>{{ student.computer }}</td><td>100</td></tr>
+                </tbody>
+                <tfoot class="table-secondary fw-bold">
+                    <tr>
+                        <td>Total</td>
+                        <td>{{ student.total_marks }}</td>
+                        <td>500</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <!-- Result Summary -->
+            <div class="alert alert-{{ student.grade_color }}">
+                <strong>Percentage:</strong> {{ student.percentage }}% &nbsp;|&nbsp;
+                <strong>Grade:</strong> {{ student.grade }} &nbsp;|&nbsp;
+                <strong>Result:</strong>
+                {% if student.grade == 'F' %}
+                    ❌ Fail
+                {% else %}
+                    ✅ Pass
+                {% endif %}
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex gap-2">
+                <a href="{% url 'marks:student_edit' student.pk %}"
+                   class="btn btn-warning btn-sm">✏️ Edit</a>
+                <a href="{% url 'marks:student_delete' student.pk %}"
+                   class="btn btn-danger btn-sm">🗑️ Delete</a>
+                <a href="{% url 'marks:student_list' %}"
+                   class="btn btn-outline-secondary btn-sm">← Back</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

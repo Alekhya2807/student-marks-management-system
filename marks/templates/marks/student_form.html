@@ -1,0 +1,98 @@
+{% extends 'marks/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card p-4">
+            <h4 class="fw-bold mb-4">📝 {{ title }}</h4>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Personal Info -->
+                <h6 class="text-muted fw-semibold mb-3">👤 Personal Information</h6>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Full Name</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger small">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Roll Number</label>
+                        {{ form.roll_no }}
+                        {% if form.roll_no.errors %}
+                            <div class="text-danger small">{{ form.roll_no.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Email</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger small">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Subject Marks -->
+                <h6 class="text-muted fw-semibold mb-3">📚 Subject Marks (out of 100)</h6>
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Maths</label>
+                        {{ form.maths }}
+                        {% if form.maths.errors %}
+                            <div class="text-danger small">{{ form.maths.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Science</label>
+                        {{ form.science }}
+                        {% if form.science.errors %}
+                            <div class="text-danger small">{{ form.science.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">English</label>
+                        {{ form.english }}
+                        {% if form.english.errors %}
+                            <div class="text-danger small">{{ form.english.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">History</label>
+                        {{ form.history }}
+                        {% if form.history.errors %}
+                            <div class="text-danger small">{{ form.history.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Computer</label>
+                        {{ form.computer }}
+                        {% if form.computer.errors %}
+                            <div class="text-danger small">{{ form.computer.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-add px-4">{{ button }}</button>
+                    <a href="{% url 'marks:student_list' %}" class="btn btn-outline-secondary px-4">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
